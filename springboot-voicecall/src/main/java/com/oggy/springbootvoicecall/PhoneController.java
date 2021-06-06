@@ -15,10 +15,10 @@ import com.twilio.type.PhoneNumber;
 @RequestMapping("/api/v1")
 public class PhoneController {
 
-	public static final String ACCOUNT_SID = "ACce1173a74cc4a0235b1e167649eb8dd7";
-	  public static final String AUTH_TOKEN = "af408d4f8d438ecdf4ee0576df3be7d8";
-	  public static final String FROM_NUMBER="+16174207457";
-	  public static final String TO_NUMBER="+917008567506";
+	public static final String ACCOUNT_SID = "enter your auth_sid";
+	  public static final String AUTH_TOKEN = "enter your auth_token";
+	  public static final String FROM_NUMBER="your twilio number";
+	  public static final String TO_NUMBER="your verified phno";
 	  static {
 		  Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 	  }
@@ -28,5 +28,18 @@ public class PhoneController {
 			        new URI("http://demo.twilio.com/docs/voice.xml")).create();
 		  System.out.println(call.getSid());
 		  return "success";
-	}//http://localhost:8080/api/v1/voicecall
+	}
+	
+	// to make a call -http://localhost:8080/api/v1/voicecall
+	@GetMapping("/sms")
+	  public String sms() throws URISyntaxException {
+		  Message message = Message.creator(new PhoneNumber(TO_NUMBER),
+			        new PhoneNumber(FROM_NUMBER), 
+			        "google.com").create();
+
+			    System.out.println(message.getSid());
+			    return "sent";
+	  }
+	
+	// to make a sms -http://localhost:8080/api/v1/sms
 }
